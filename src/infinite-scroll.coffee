@@ -67,6 +67,7 @@ mod.directive 'infiniteScroll', ['$rootScope', '$window', '$interval', 'THROTTLE
         checkWhenEnabled = true
 
         if scrollEnabled
+          checkWhenEnabled = false
           if scope.$$phase || $rootScope.$$phase
             scope.infiniteScroll()
           else
@@ -108,7 +109,7 @@ mod.directive 'infiniteScroll', ['$rootScope', '$window', '$interval', 'THROTTLE
       if unregisterEventListener?
         unregisterEventListener()
         unregisterEventListener = null
-      if checkInterval 
+      if checkInterval
         $interval.cancel checkInterval
 
     # infinite-scroll-distance specifies how close to the bottom of the page

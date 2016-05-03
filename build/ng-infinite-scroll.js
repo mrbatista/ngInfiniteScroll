@@ -1,4 +1,4 @@
-/* ng-infinite-scroll - v1.2.1 - 2016-02-09 */
+/* ng-infinite-scroll - v1.2.1 - 2016-05-03 */
 var mod;
 
 mod = angular.module('infinite-scroll', []);
@@ -70,6 +70,7 @@ mod.directive('infiniteScroll', [
           if (shouldScroll) {
             checkWhenEnabled = true;
             if (scrollEnabled) {
+              checkWhenEnabled = false;
               if (scope.$$phase || $rootScope.$$phase) {
                 return scope.infiniteScroll();
               } else {
@@ -116,7 +117,10 @@ mod.directive('infiniteScroll', [
           container.unbind('scroll', handler);
           if (unregisterEventListener != null) {
             unregisterEventListener();
-            return unregisterEventListener = null;
+            unregisterEventListener = null;
+          }
+          if (checkInterval) {
+            return $interval.cancel(checkInterval);
           }
         });
         handleInfiniteScrollDistance = function(v) {
